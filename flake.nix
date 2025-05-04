@@ -34,6 +34,7 @@
             nil
             alejandra
           ];
+          packages = [ self'.packages.ft ];
         };
 
         treefmt = {
@@ -42,6 +43,22 @@
             alejandra.enable = true;
             mdformat.enable = true;
           };
+        };
+
+        packages.ft = pkgs.writeShellScriptBin "ft" ''
+          set -euo pipefail
+          if [ $# -eq 0 ]; then
+            echo "Usage: ft <template> [nix flake init options...]" >&2
+            exit 1
+          fi
+          template=$1
+          shift
+          nix flake init --template "github:momeemt/flake-templates#$template" "$@"
+        '';
+
+        packages.default = self'.packages.ft;
+        apps.default = flake-parts.lib.mkApp {
+          drv = self'.packages.default;
         };
       };
     };
