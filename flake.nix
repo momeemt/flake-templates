@@ -21,6 +21,13 @@
         "aarch64-darwin"
       ];
 
+      flake.templates = {
+        rust = {
+          path = ./rust;
+          description = "Usual Rust project Template (cargo, rust-analyzer, treefmt, ghactions and flakes)";
+        };
+      };
+
       perSystem = {
         config,
         self',
