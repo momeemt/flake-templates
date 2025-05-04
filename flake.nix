@@ -41,7 +41,7 @@
             nil
             alejandra
           ];
-          packages = [ self'.packages.ft ];
+          packages = [self'.packages.ft];
         };
 
         treefmt = {
@@ -50,6 +50,9 @@
             alejandra.enable = true;
             mdformat.enable = true;
           };
+          settings.global.excludes = [
+            "LICENSE-*"
+          ];
         };
 
         packages.ft = pkgs.writeShellScriptBin "ft" ''
