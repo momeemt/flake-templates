@@ -64,8 +64,9 @@
         '';
 
         packages.default = self'.packages.ft;
-        apps.default = flake-parts.lib.mkApp {
-          drv = self'.packages.default;
+        apps.default = {
+          type = "app";
+          program = "${self'.packages.default}/bin/ft";
         };
       };
     };
